@@ -63,7 +63,6 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 	}
 	
 	private void setPanels() {
-		removeAll();
 		add(intervalPanel);
 		add(harmonicPanel);
 		add(altHarmonicPanel);
@@ -103,7 +102,7 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 	}
 	
 	private void updatePanelInfo() {
-		this.intervalPanel.updateInfo(Long.toString(billionsOfIterations) + "Billion");
+		this.intervalPanel.updateInfo(Long.toString(billionsOfIterations) + " Billion");
 		this.harmonicPanel.updateInfo(Double.toString(normHarmonicTot));
 		this.altHarmonicPanel.updateInfo(Double.toString(altHarmonicTot));
 		this.worldDebtPanel.updateInfo(millisToDHMS(calcTimeUntilWorldDebt()));
@@ -161,13 +160,13 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 		private static class CustomTitle extends JLabel {
 			public CustomTitle(String name) {
 				setText("<html><p align='center'><font size='6' face='georgia' color='#F57C00'>" + name + "</font></p></html>");
-				setBorder(new EmptyBorder(10, 10, 10, 10));
+				setBorder(new EmptyBorder(10, 10, 0, 10));
 			}
 		}
 		
 		private static class CustomInfo extends JLabel {
 			public CustomInfo(String info) {
-				setText("<html><p align='center'><font size='4' face='georgia' color='#FFB300'>" + info + "</font></p></html>");
+				setText("<html><p align='center'><font size='5' face='georgia' color='#FFB300'>" + info + "</font></p></html>");
 				setBorder(new EmptyBorder(0, 10, 10, 10));
 			}
 		}
