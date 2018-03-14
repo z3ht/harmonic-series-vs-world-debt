@@ -5,11 +5,14 @@ import me.zinno.harmonictodebt.util.HarmonicSeries;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.*;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class HarmonicSeriesToWorldDebtFrame extends JFrame {
+public class HarmonicSeriesToWorldDebtFrame extends JFrame{
 	
 	private long billionsOfIterations;
 	private double normHarmonicTot;
@@ -48,6 +51,12 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 	
 	private void setInitialValues() throws IOException {
 		
+		try { // Makes sure the save file has a chance to load into memory while in startup files
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		this.saveFile = new File("Harmonic Series to World Debt (Save File).txt");
 		
 		if(!saveFile.exists() || saveFile.isDirectory())
@@ -73,6 +82,18 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				super.windowClosed(e);
+				try {
+					saveData();
+				} catch (IOException exception) {
+					System.out.println("Could not save file");
+				}
+			}
+		});
 	}
 	
 	public void iterateOneBillionTimes() throws IOException{
@@ -85,7 +106,7 @@ public class HarmonicSeriesToWorldDebtFrame extends JFrame {
 		System.out.println(billionsOfIterations + "\t" + normHarmonicTot + "\t" + altHarmonicTot);
 		
 		billionsOfIterations += 1;
-		if(billionsOfIterations % 10 == 0)
+		if(billionsOfIterations % 5 == 0)
 			saveData();
 		updatePanelInfo();
 		if (billionsOfIterations == 71687)
